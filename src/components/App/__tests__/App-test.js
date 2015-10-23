@@ -45,33 +45,14 @@ describe('App', function() {
 		expect(totalLabel.getDOMNode().textContent).toBe('Total: 0');
 	});
 
-
-	/*it('should call addCounterCallback on form submit', function() {
-		component.addCounterCallback = jest.genMockFunction();
-		var addForm = findByTag(component, 'form');
-		simulateSubmit(addForm.getDOMNode());
-		expect(component.addCounterCallback).toBeCalled();
-	});*/
-
-	
-
-
 	it('should start with 0 counters', function() {
 		var counters = scryByType(component, Counter);
 		expect(counters.length).toBe(0);
 	});
 
 	it('should be able to add a child counter', function() {
-		//var counters = scryByType(component, Counter);
-		//expect(counters.length).toBe(0);
-
-		//var addForm = findByTag(component, 'form')
-		//simulateClick(addButton.getDOMNode());
-		//simulateSubmit(addForm);
-
 		component.createNewCounter('Test counter');
 		var counters = scryByType(component, Counter);
-		//var counterLabel = findByTag(component, 'span');
 		expect(counters.length).toBe(1);
 	});
 
