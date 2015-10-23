@@ -9,21 +9,28 @@ displayName: 'Counter',
 	getInitialState: function() {
 		return {
 			label: this.props.label,
-			total: 0,
+			value: 0
+		};
+	},
+
+	getDefaultProps: function () {
+		return { 
+			incrementCallback: function(){},
+			decrementCallback: function(){} 
 		};
 	},
 
 	incrementCount: function(){
 		this.setState({
-			total: this.state.total + 1
+			value: this.state.value + 1
 		});
 		this.props.incrementCallback();
 	},
 
 	decrementCount: function(){
-		if (this.state.total > 0) {
+		if (this.state.value > 0) {
 			this.setState({
-				total: this.state.total - 1
+				value: this.state.value - 1
 			});
 			this.props.decrementCallback();
 		}
@@ -31,9 +38,9 @@ displayName: 'Counter',
 
 	render: function() {
 		return <div className="Counter">
-					{this.state.label}: {this.state.total} 
-					<button onClick={this.incrementCount}>+</button> 
-					<button onClick={this.decrementCount}>-</button>
+					<span>{this.state.label}: {this.state.value}</span>
+					<button className="increment" onClick={this.incrementCount}>+</button> 
+					<button className="decrement" onClick={this.decrementCount}>-</button>
 				</div>;
 	},
 });

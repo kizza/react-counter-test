@@ -5,48 +5,50 @@ var react     = require('react');
 var Counter = require('./../../components/Counter');
 
 module.exports = react.createClass({
-displayName: 'App',
+	displayName: 'App',
 
 	getInitialState: function() {
 		return {
-			total: 0,
-			counters:[]
+			counters:[],
+			total: 0
 		};
 	},
 
-	incrementCount: function(){
+	incrementTotal: function(){
 		this.setState({
 			total: this.state.total + 1
 		});
 	},
 
-	decrementCount: function(){
+	decrementTotal: function(){
 		this.setState({
 			total: this.state.total - 1
 		});
 	},
 
-	addCounter: function(e) {
+	addCounterCallback: function(e) {
 		e.preventDefault();
-		// Get data
 		var input = this.refs.counterName.getDOMNode();
 		var counterName = input.value.trim();
 		input.focus();
 		input.value = '';
+		this.createNewCounter(counterName);
+	},
+
+	createNewCounter:function(counterName){
 		if (!counterName){
 			alert('Please enter a counter name');
 			return;
 		}
-
-		// Add counter
 		var counters = this.state.counters;
 		counters.push({
-			'key': 'counter-'+counters.length,
+			'id': 'counter-'+counters.length,
 			'label': counterName,
-			'incrementCallback': this.incrementCount,
-			'decrementCallback': this.decrementCount
+			'incrementCallback': this.incrementTotal,
+			'decrementCallback': this.decrementTotal
 		});
 		this.setState({counters: counters});
+		return counters;
 	},
 
 	render: function() {
@@ -54,7 +56,7 @@ displayName: 'App',
 		return <div className="App">
 				<h1>Counter App</h1>
 				<h2>Total: {this.state.total}</h2>
-				<div id="counters">
+				<p id="counters">
 				{
 					counters.map(function(result) {
 					return (
@@ -63,10 +65,10 @@ displayName: 'App',
 							decrementCallback={result.decrementCallback} />
 					);
 		      }, this)}
-				</div> 
-				<form onSubmit={this.addCounter}>
-					<input type="text" placeholder="Counter Name" ref="counterName" />
-					<input type="submit" value="Add" />
+				</p> 
+				<form onSubmit={this.addCounterCallback}>
+					<p>New counter <input type="text" placeholder="Counter Name" ref="counterName" />
+					<button type="submit">Add</button></p>
 				</form>
 			</div>;
 	},
