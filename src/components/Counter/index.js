@@ -4,7 +4,13 @@
 var react     = require('react');
 
 module.exports = react.createClass({
-displayName: 'Counter',
+  displayName: 'Counter',
+
+  propTypes: {
+    label: react.PropTypes.string,
+    onIncrement: react.PropTypes.func,
+    onDecrement: react.PropTypes.func
+  },
 
   getInitialState: function() {
     return {
@@ -15,8 +21,8 @@ displayName: 'Counter',
 
   getDefaultProps: function () {
     return { 
-      incrementCallback: function(){},
-      decrementCallback: function(){} 
+      onIncrement: function(){},
+      onDecrement: function(){} 
     };
   },
 
@@ -24,7 +30,7 @@ displayName: 'Counter',
     this.setState({
       value: this.state.value + 1
     });
-    this.props.incrementCallback();
+    this.props.onIncrement();
   },
 
   decrementCount: function(){
@@ -32,7 +38,7 @@ displayName: 'Counter',
       this.setState({
         value: this.state.value - 1
       });
-      this.props.decrementCallback();
+      this.props.onDecrement();
     }
   },
 

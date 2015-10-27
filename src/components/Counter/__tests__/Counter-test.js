@@ -21,51 +21,50 @@ describe('Counter', function() {
     expect(label.getDOMNode().textContent).toBe('Test: 0');
   });
 
-  it('should increment to 1 when "+" button pressed', function() {
-    var incrementButton = findByClass(component, 'increment')
-    simulateClick(incrementButton.getDOMNode());
-
+  it('should increment when "+" button pressed', function() {
+    var incrementButton = findByClass(component, 'increment');
     var label = findByTag(component, 'span');
+    simulateClick(incrementButton.getDOMNode());
     expect(label.getDOMNode().textContent).toBe('Test: 1');
   });
 
   it('should not decrement below 0', function() {
-    component.decrementCount(); 
+    // component.decrementCount(); 
     var label = findByTag(component, 'span');
+    var decrementButton = findByClass(component, 'decrement');
+    simulateClick(decrementButton.getDOMNode());
     expect(label.getDOMNode().textContent).toBe('Test: 0');
   });
 
   it('should decrement to 0 after incrementing first', function() {
-    var incrementButton = findByClass(component, 'increment')
-    simulateClick(incrementButton.getDOMNode());
-
-    var decrementButton = findByClass(component, 'decrement')
-    simulateClick(decrementButton.getDOMNode());
-
+    var incrementButton = findByClass(component, 'increment');
+    var decrementButton = findByClass(component, 'decrement');
     var label = findByTag(component, 'span');
+    simulateClick(incrementButton.getDOMNode());
+    simulateClick(decrementButton.getDOMNode());
     expect(label.getDOMNode().textContent).toBe('Test: 0');
   });
 
-  it('should run callback function when "+" button pressed', function() {
-    component.setProps({ incrementCallback: jest.genMockFunction() });
+  it('should run callback function when incremented', function() {
     var incrementButton = findByClass(component, 'increment');
+    component.setProps({ onIncrement: jest.genMockFunction() });
     simulateClick(incrementButton.getDOMNode());
-    expect(component.props.incrementCallback).toBeCalled();
+    expect(component.props.onIncrement).toBeCalled();
   });
 
-  it('should run callback function when "-" button pressed', function() {
-    component.setState({ value: 1 });
-    component.setProps({ decrementCallback: jest.genMockFunction() });
+  it('should run callback function when decremented', function() {
     var decrementButton = findByClass(component, 'decrement');
+    component.setState({ value: 1 });
+    component.setProps({ onDecrement: jest.genMockFunction() });
     simulateClick(decrementButton.getDOMNode());
-    expect(component.props.decrementCallback).toBeCalled();
+    expect(component.props.onDecrement).toBeCalled();
   });
 
   it('should not run callback function when decrementing below 0', function() {
-    component.setProps({ decrementCallback: jest.genMockFunction() });
     var decrementButton = findByClass(component, 'decrement');
+    component.setProps({ onDecrement: jest.genMockFunction() });
     simulateClick(decrementButton.getDOMNode());
-    expect(component.props.decrementCallback).not.toBeCalled();
+    expect(component.props.onDecrement).not.toBeCalled();
   });
 
 });
