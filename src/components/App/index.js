@@ -26,7 +26,7 @@ module.exports = react.createClass({
     });
   },
 
-  addFormCallback: function(e) {
+  formCallback: function(e) {
     e.preventDefault();
     var input = this.refs.counterName.getDOMNode();
     var counterName = input.value.trim();
@@ -65,7 +65,7 @@ module.exports = react.createClass({
             )}, this)
         }  
         </p> 
-        <form onSubmit={this.addFormCallback}>
+        <form onSubmit={this.formCallback}>
           <p>New counter <input type="text" placeholder="Counter Name" ref="counterName" />
           <button type="submit">Add</button></p>
         </form>
