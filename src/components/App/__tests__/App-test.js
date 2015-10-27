@@ -48,12 +48,6 @@ describe('App', function() {
     expect(counters.length).toBe(0);
   });
 
-  it('should be able to add a child counter', function() {
-    component.createNewCounter('Test counter');
-    var counters = scryByType(component, Counter);
-    expect(counters.length).toBe(1);
-  });
-
   it('should be able to create a counter by name', function() {
     var counterName = findByTag(component, 'input');
     counterName.getDOMNode().value = 'Custom name';

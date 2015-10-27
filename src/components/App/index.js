@@ -26,7 +26,7 @@ module.exports = react.createClass({
     });
   },
 
-  addCounterCallback: function(e) {
+  addFormCallback: function(e) {
     e.preventDefault();
     var input = this.refs.counterName.getDOMNode();
     var counterName = input.value.trim();
@@ -37,7 +37,7 @@ module.exports = react.createClass({
   createNewCounter:function(counterName){
     if (!counterName){
       alert('Please enter a counter name');
-      return;
+      return false;
     }
     var counters = this.state.counters;
     counters.push({
@@ -59,13 +59,13 @@ module.exports = react.createClass({
         {
           counters.map(function(result) {
             return (
-              <Counter type="text" key={result.id} label={result.label} 
+              <Counter key={result.id} label={result.label} 
                 incrementCallback={result.incrementCallback} 
                 decrementCallback={result.decrementCallback} />
             )}, this)
         }  
         </p> 
-        <form onSubmit={this.addCounterCallback}>
+        <form onSubmit={this.addFormCallback}>
           <p>New counter <input type="text" placeholder="Counter Name" ref="counterName" />
           <button type="submit">Add</button></p>
         </form>
