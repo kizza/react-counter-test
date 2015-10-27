@@ -16,7 +16,7 @@ describe('Counter', function() {
     component = TestUtils.renderIntoDocument(<Counter label="Test" />);
   });
 
-  it('should render the Counter initial value of 0', function() {
+  it('should render with initial value of 0', function() {
     var label = findByTag(component, 'span');
     expect(label.getDOMNode().textContent).toBe('Test: 0');
   });
@@ -35,7 +35,7 @@ describe('Counter', function() {
     expect(label.getDOMNode().textContent).toBe('Test: 0');
   });
 
-  it('should decrement to 0 after pressing "+" then "-"', function() {
+  it('should decrement to 0 after incrementing first', function() {
     var incrementButton = findByClass(component, 'increment')
     simulateClick(incrementButton.getDOMNode());
 
@@ -46,19 +46,26 @@ describe('Counter', function() {
     expect(label.getDOMNode().textContent).toBe('Test: 0');
   });
 
-  it('should run callback when "+" button pressed', function() {
+  it('should run callback function when "+" button pressed', function() {
     component.setProps({ incrementCallback: jest.genMockFunction() });
     var incrementButton = findByClass(component, 'increment');
     simulateClick(incrementButton.getDOMNode());
     expect(component.props.incrementCallback).toBeCalled();
   });
 
-  it('should run callback when "-" button pressed', function() {
+  it('should run callback function when "-" button pressed', function() {
     component.setState({ value: 1 });
     component.setProps({ decrementCallback: jest.genMockFunction() });
     var decrementButton = findByClass(component, 'decrement');
     simulateClick(decrementButton.getDOMNode());
     expect(component.props.decrementCallback).toBeCalled();
+  });
+
+  it('should not run callback function when decrementing below 0', function() {
+    component.setProps({ decrementCallback: jest.genMockFunction() });
+    var decrementButton = findByClass(component, 'decrement');
+    simulateClick(decrementButton.getDOMNode());
+    expect(component.props.decrementCallback).not.toBeCalled();
   });
 
 });

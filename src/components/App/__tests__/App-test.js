@@ -95,24 +95,24 @@ describe('App', function() {
   });
 
   it('should decrement total from multiple child counters', function() {
-    var i, decrementButton;
     component.createNewCounter('Test counter 1')
     component.createNewCounter('Test counter 2');
     var counters = scryByType(component, Counter);
+    var totalLabel = findByTag(component, 'h2');
+    var i, decrementButton;
 
     // Set state
     component.setState({ total: 2 });
     for (i=0; i<counters.length; i++){
       counters[i].setState({ value: 1 });
     }
+    expect(totalLabel.getDOMNode().textContent).toBe('Total: 2');
 
     // Change state
     for (i=0; i<counters.length; i++){
       decrementButton = findByClass(counters[i], 'decrement');
       simulateClick(decrementButton.getDOMNode());
     }
-    
-    var totalLabel = findByTag(component, 'h2');
     expect(totalLabel.getDOMNode().textContent).toBe('Total: 0');
   });
 
