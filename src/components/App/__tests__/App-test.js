@@ -30,19 +30,6 @@ describe('App', function() {
     expect(totalLabel.getDOMNode().textContent).toBe('Total: 0');
   });
 
-  it('should be able to increment total', function() {
-    component.incrementTotal();
-    var totalLabel = findByTag(component, 'h2');
-    expect(totalLabel.getDOMNode().textContent).toBe('Total: 1');
-  });
-
-  it('should be able to decrement total', function() {
-    component.setState({total: 1});
-    component.decrementTotal();
-    var totalLabel = findByTag(component, 'h2');
-    expect(totalLabel.getDOMNode().textContent).toBe('Total: 0');
-  });
-
   it('should start with 0 counters', function() {
     var counters = scryByType(component, Counter);
     expect(counters.length).toBe(0);
@@ -52,10 +39,9 @@ describe('App', function() {
     var counterName = findByTag(component, 'input');
     counterName.getDOMNode().value = 'Custom name';
     var form = findByTag(component, 'form');
-    simulateSubmit(counterName);
+    simulateSubmit(form);
     var counter = findByType(component, Counter);
-    var counterLabel = findByTag(counter, 'span');
-    expect(counterLabel.getDOMNode().textContent).toBe('Custom name: 0');
+    expect(counter.getDOMNode().textContent).toContain('Custom name');
   });
 
   it('should increment total from single child counter', function() {
@@ -95,11 +81,11 @@ describe('App', function() {
   });
 
   it('should decrement total from multiple child counters', function() {
+    var i, decrementButton;
     component.createNewCounter('Test counter 1')
     component.createNewCounter('Test counter 2');
     var counters = scryByType(component, Counter);
     var totalLabel = findByTag(component, 'h2');
-    var i, decrementButton;
 
     // Set state
     component.setState({ total: 2 });

@@ -43,8 +43,8 @@ module.exports = react.createClass({
     counters.push({
       'id': 'counter-'+counters.length,
       'label': counterName,
-      'incrementCallback': this.incrementTotal,
-      'decrementCallback': this.decrementTotal
+      'onIncrement': this.incrementTotal,
+      'onDecrement': this.decrementTotal
     });
     this.setState({counters: counters});
     return counters;
@@ -60,8 +60,8 @@ module.exports = react.createClass({
           counters.map(function(result) {
             return (
               <Counter key={result.id} label={result.label} 
-                incrementCallback={result.incrementCallback} 
-                decrementCallback={result.decrementCallback} />
+                onIncrement={result.onIncrement} 
+                onDecrement={result.onDecrement} />
             )}, this)
         }  
         </p> 
