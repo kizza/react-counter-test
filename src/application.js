@@ -5,6 +5,6 @@ var react  = require('react');
 var App = require('./components/App');
 
 react.renderComponent(
-	App(),
-	document.body
+  App(),
+  document.body
 );
