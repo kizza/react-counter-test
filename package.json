@@ -8,12 +8,12 @@
   "scripts": {
     "setup": "npm install && npm run build && npm test",
     "build": "npm run scripts",
-    "build-dev": "npm run scripts-dev && npm run styles-dev",
+    "build-dev": "npm run scripts-dev",
     "scripts": "browserify ./src/application.js | uglifyjs -cm > ./public/scripts/application.js",
     "scripts-dev": "browserify ./src/application.js > ./public/scripts/application.js",
     "start": "node server.js",
     "test": "NODE_ENV=development node_modules/.bin/jest",
-    "test_windows": "jest"
+    "test_windows": "node_modules/.bin/jest"
   },
   "devDependencies": {
     "browserify": "~2.36.0",
